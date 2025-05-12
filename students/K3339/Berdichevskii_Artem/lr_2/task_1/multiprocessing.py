@@ -1,27 +1,43 @@
 import multiprocessing
-import time
+
+from consts import MAX_NUMBER, NUM_PROCESSES
+from utils import timer_decorator, get_end_index
 
 
-def calculate_partial_sum(start: int, end: int) -> int:
-    return sum(range(start, end + 1))
+def calculate_sum(start, end, result_queue) :
+    total = 0
+    for i in range(start, end) :
+        total += i
+    result_queue.put(total)
 
 
-def calculate_sum() -> None:
-    start_time = time.time()
+def main() :
+    processes = []
+    result_queue = multiprocessing.Queue()
+    chunk_size = MAX_NUMBER // NUM_PROCESSES
 
-    with multiprocessing.Pool(processes=4) as pool:
-        results = pool.starmap(
-            calculate_partial_sum,
-            [(1, 250000), (250001, 500000), (500001, 750000), (750001, 1000000)]
-        )
+    @timer_decorator("multiprocessing")
+    def exec() :
+        for i in range(NUM_PROCESSES) :
+            start = i * chunk_size + 1
+            end = get_end_index(i, chunk_size, NUM_PROCESSES)
 
-    total_sum = sum(results)
+            process = multiprocessing.Process(target=calculate_sum, args=(start, end, result_queue))
+            processes.append(process)
 
-    print(
-        f"Сумма: {total_sum}\n"
-        f"Время: {time.time() - start_time}"
-    )
+        for process in processes :
+            process.start()
+
+        for process in processes :
+            process.join()
+
+        total_sum = 0
+        while not result_queue.empty() :
+            total_sum += result_queue.get()
+        return total_sum
+
+    exec()
 
 
-if __name__ == "__main__":
-    calculate_sum()
+if __name__ == "__main__" :
+    main()

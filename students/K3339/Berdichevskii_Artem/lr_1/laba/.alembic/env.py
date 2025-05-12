@@ -1,20 +1,27 @@
 import asyncio
+import os
 from logging.config import fileConfig
-
-from app.models import User, Team, Task, Submission, Registration, Event, Attachment  # Adjust this import
-from app.database import engine
-
+# Импортируй metadata из модели
+from app.models import Base
 
 from alembic import context
+from app.core.config import settings
+from dotenv import load_dotenv
 from sqlalchemy import pool
 from sqlalchemy.ext.asyncio import create_async_engine
-from sqlmodel import SQLModel
 
-from app.core.config import settings
+# Load .env
+load_dotenv(dotenv_path=os.path.join(os.path.dirname(__file__), '..', '.env'))
 
 config = context.config
-fileConfig(config.config_file_name)
-target_metadata = SQLModel.metadata
+
+# Заменяем значение sqlalchemy.url через .env
+config.set_main_option('sqlalchemy.url', os.getenv('DATABASE_URL'))
+
+if config.config_file_name is not None:
+    fileConfig(config.config_file_name)
+
+target_metadata = Base.metadata
 
 
 def run_migrations_offline():
