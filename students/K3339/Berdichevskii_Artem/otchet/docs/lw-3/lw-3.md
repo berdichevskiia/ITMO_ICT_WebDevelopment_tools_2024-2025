@@ -102,8 +102,8 @@ from app.tasks import celery_app
 # celery -A app.celery_worker.celery_app worker --loglevel=info
 ```
 
-![1](https://drive.google.com/file/d/1D7-PXuL0zB_lcDBlbrMpkTZnFfMMz1h_/view?usp=share_link)
+![1](https://postimg.cc/D4L43SRj)
 
-![2](/Users/artemberdichevskii/PycharmProjects/ITMO_ICT_WebDevelopment_tools_2024-2025/students/K3339/Berdichevskii_Artem/otchet/docs/pic/3_2.png)
+![2](https://postimg.cc/K4MMMW4P)
 
-![3](/lw-3/lw-3/otchet/docs/pic/3_3.png)
+![3](https://postimg.cc/8JqfYRXf)
