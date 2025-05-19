@@ -38,8 +38,6 @@ markdown_extensions:
       emoji_index: !!python/name:material.extensions.emoji.twemoji
       emoji_generator: !!python/name:material.extensions.emoji.to_svg
   - tables
-extra:
-  images_dir: docs/pic
 extra_css:
 - css/custom.css
 - css/palette.scss
