@@ -102,8 +102,8 @@ from app.tasks import celery_app
 # celery -A app.celery_worker.celery_app worker --loglevel=info
 ```
 
-![1](pic/3_1.png)
+![1](docs/pic/3_1.png)
 
-![2](pic/3_2.png)
+![2](docs/pic/3_2.png)
 
-![3](pic/3_3.png)
+![3](docs/pic/3_3.png)
