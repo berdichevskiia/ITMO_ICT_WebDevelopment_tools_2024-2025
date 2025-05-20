@@ -41,9 +41,6 @@ markdown_extensions:
       emoji_index: !!python/name:material.extensions.emoji.twemoji
       emoji_generator: !!python/name:material.extensions.emoji.to_svg
   - tables
-extra_css:
-- css/custom.css
-- css/palette.scss
 nav:
   - "№1: Реализация серверного приложения FastAPI": lw-1/lab-1.md
   - "№2: Потоки. Процессы. Асинхронность": lw-2/lw-2.md
